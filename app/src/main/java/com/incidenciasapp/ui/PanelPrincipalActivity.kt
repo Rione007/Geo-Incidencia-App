@@ -34,13 +34,13 @@ class PanelPrincipalActivity : AppCompatActivity() {
         btnPerfil = findViewById(R.id.btnPerfil)
 
         val buttons = listOf(
-            PanelButton(btnExplorar, ExplorarFragment.newInstance()),
-            PanelButton(btnIncidentes, IncidentesFragment.newInstance()),
-            PanelButton(btnMisReportes, MisReportesFragment.newInstance()),
-            PanelButton(btnPerfil, PerfilFragment.newInstance())
+            PanelButton(btnExplorar, ExplorarFragment()),
+            PanelButton(btnIncidentes, IncidentesFragment()),
+            PanelButton(btnMisReportes, MisReportesFragment()),
+            PanelButton(btnPerfil, PerfilFragment())
         )
 
-        loadFragment(ExplorarFragment.newInstance())
+        loadFragment(ExplorarFragment())
         setActiveButton(btnExplorar)
 
         buttons.forEach { button ->
