@@ -16,25 +16,23 @@ import com.incidenciasapp.data.remote.retrofit.RetrofitClient
 import com.incidenciasapp.data.repository.AuthRepository
 import com.incidenciasapp.ui.viewmodel.AuthViewModel
 import com.incidenciasapp.ui.viewmodel.ViewModelFactory
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
 
     private lateinit var userPrefs: UserPreferences
-
     private lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
-        userPrefs = UserPreferences(this)
 
+        userPrefs = UserPreferences(this)
 
         val authApi = RetrofitClient.create(AuthApiService::class.java) { null }
         val repo = AuthRepository(authApi)
         val factory = ViewModelFactory(repo)
-
         viewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
 
         val user = findViewById<EditText>(R.id.txtEmail)
@@ -45,33 +43,44 @@ class LoginActivity : ComponentActivity() {
         btnLogin.setOnClickListener {
             viewModel.login(user.text.toString(), pass.text.toString())
         }
+
         btnRegistrar.setOnClickListener {
-            val intent = Intent(this, RegistrarActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegistrarActivity::class.java))
         }
 
         viewModel.loginResult.observe(this) { response ->
-            // Login OK
+            if (!response.exito) {
+                Toast.makeText(this, "Error: ${response.mensaje}", Toast.LENGTH_LONG).show()
+                return@observe
+            }
+
+            val token = response.usuario.TOKEN
+            if (token.isNullOrBlank()) {
+                Toast.makeText(this, "Error: No se recibió token del servidor", Toast.LENGTH_LONG).show()
+                return@observe
+            }
+
             Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
 
-            // Guardar token
             lifecycleScope.launch {
-
-                // Guardar token
-                userPrefs.saveToken(response.usuario.TOKEN)
-
-                // Guardar datos del usuario
+                userPrefs.saveToken(token)
+                userPrefs.saveUserId(response.usuario.ID_USUARIO)
                 userPrefs.saveUser(
                     name = response.usuario.NOMBRE,
                     email = response.usuario.EMAIL,
                     role = response.usuario.ROL
                 )
+
+                val savedToken = userPrefs.getToken().first()
+                val savedUserId = userPrefs.getUserId().first()
+
+                if (savedToken == token && savedUserId == response.usuario.ID_USUARIO) {
+                    startActivity(Intent(this@LoginActivity, PanelPrincipalActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this@LoginActivity, "Error al guardar sesión", Toast.LENGTH_LONG).show()
+                }
             }
-
-            // Ir al Home
-            startActivity(Intent(this, PanelPrincipalActivity::class.java))
-            finish()
         }
-
     }
 }

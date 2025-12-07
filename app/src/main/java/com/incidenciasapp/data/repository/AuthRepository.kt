@@ -15,12 +15,15 @@ class AuthRepository(
             val request = LoginRequest(cuenta, contrasena)
             val response = api.login(request)
 
-            if (response.success && response.data != null && response.data.exito) {
-                Result.success(response.data)
+            if (response.success && response.data != null) {
+                if (response.data.exito) {
+                    Result.success(response.data)
+                } else {
+                    Result.failure(Exception(response.data.mensaje))
+                }
             } else {
                 Result.failure(Exception(response.message))
             }
-
         } catch (e: Exception) {
             Result.failure(e)
         }
@@ -36,10 +39,8 @@ class AuthRepository(
             } else {
                 Result.failure(Exception("Error: ${response.message} - ${response.errors}"))
             }
-
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
-
 }

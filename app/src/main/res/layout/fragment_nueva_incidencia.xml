@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/btn_pick_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ubicar en el mapa"/>
+
+        <TextView
+                android:id="@+id/tv_coords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Coordenadas: ---" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo"/>
+
+        <Spinner
+                android:id="@+id/spinner_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subtipo"/>
+
+        <Spinner
+                android:id="@+id/spinner_subtipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:id="@+id/btn_pick_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Fecha"/>
+
+        <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha: ---" />
+
+        <EditText
+                android:id="@+id/et_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección referencial"/>
+
+        <EditText
+                android:id="@+id/et_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:hint="Descripción"
+                android:gravity="top"
+                android:inputType="textMultiLine"/>
+
+        <Button
+                android:id="@+id/btn_pick_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subir imágenes (máx 3)"/>
+
+        <LinearLayout
+                android:id="@+id/container_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+
+        <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crear incidencia"
+                android:layout_marginTop="12dp"/>
+
+    </LinearLayout>
+</ScrollView>

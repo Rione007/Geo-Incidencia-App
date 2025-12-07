@@ -1,11 +1,23 @@
 package com.incidenciasapp.dto
 
-data class ApiResponse<T>(
-    val success: Boolean,
-    val message: String,
-    val code: Int,
-    val errors: Map<String, List<String>>?,
-    val data: T?,
-    val dataList: List<T>?
-)
+import com.google.gson.annotations.SerializedName
 
+data class ApiResponse<T>(
+    @SerializedName("success")
+    val success: Boolean,
+
+    @SerializedName("message")
+    val message: String,
+
+    @SerializedName("code")
+    val code: Int,
+
+    @SerializedName("errors")
+    val errors: List<String>? = null,
+
+    @SerializedName("data")
+    val data: T? = null,
+
+    @SerializedName("dataList")
+    val dataList: List<T>? = null
+)

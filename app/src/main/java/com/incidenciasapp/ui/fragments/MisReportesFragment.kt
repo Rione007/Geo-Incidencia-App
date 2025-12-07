@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.incidenciasapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,28 +18,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MisReportesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MisReportesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MisReportesFragment : Fragment(R.layout.fragment_mis_reportes) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val fabAdd = view.findViewById<FloatingActionButton?>(R.id.fab_add)
+        fabAdd?.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, NuevaIncidenciaFragment())
+                .addToBackStack(null)
+                .commit()
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mis_reportes, container, false)
-    }
-
-    companion object {
-        fun newInstance() : MisReportesFragment =MisReportesFragment()
     }
 }
