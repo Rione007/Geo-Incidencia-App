@@ -101,6 +101,8 @@ dependencies {
     implementation("com.azure:azure-storage-blob:12.25.1")
     implementation("com.azure:azure-core:1.45.1")
 
+    implementation("com.google.android.material:material:1.11.0")
+
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
 
