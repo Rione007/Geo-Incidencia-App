@@ -64,4 +64,13 @@ class UserPreferences(private val context: Context) {
         context.dataStore.data.map { prefs ->
             prefs[USER_ID]?.toIntOrNull()
         }
+
+    fun getUserName(): Flow<String?> =
+        context.dataStore.data.map { it[USER_NAME] }
+
+    fun getUserEmail(): Flow<String?> =
+        context.dataStore.data.map { it[USER_EMAIL] }
+
+    fun getUserRole(): Flow<String?> =
+        context.dataStore.data.map { it[USER_ROLE] }
 }

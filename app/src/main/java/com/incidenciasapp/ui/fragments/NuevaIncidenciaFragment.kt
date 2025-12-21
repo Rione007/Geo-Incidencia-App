@@ -85,12 +85,12 @@ class NuevaIncidenciaFragment : Fragment() {
         val spinnerSubtipo = view.findViewById<Spinner>(R.id.spinner_subtipo)
         val btnPickDate = view.findViewById<View>(R.id.btn_pick_date)
         val btnPickLocation = view.findViewById<View>(R.id.btn_pick_location)
-        val btnPickImages = view.findViewById<View>(R.id.btn_pick_images)
+        //val btnPickImages = view.findViewById<View>(R.id.btn_pick_images)
         val btnSubmit = view.findViewById<View>(R.id.btn_submit)
         val tvDate = view.findViewById<TextView>(R.id.tv_date)
         val etDireccion = view.findViewById<EditText>(R.id.et_direccion)
         val etDescripcion = view.findViewById<EditText>(R.id.et_descripcion)
-        containerImages = view.findViewById(R.id.container_images)
+        //containerImages = view.findViewById(R.id.container_images)
 
         spinnerTipo.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Cargando..."))
         spinnerSubtipo.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Cargando..."))
@@ -150,13 +150,13 @@ class NuevaIncidenciaFragment : Fragment() {
             pickLocationLauncher.launch(Intent(requireContext(), MapPickActivity::class.java))
         }
 
-        btnPickImages.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "image/*"
-                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            }
-            pickImagesLauncher.launch(Intent.createChooser(intent, "Seleccionar imágenes"))
-        }
+//        btnPickImages.setOnClickListener {
+//            val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+//                type = "image/*"
+//                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//            }
+//            pickImagesLauncher.launch(Intent.createChooser(intent, "Seleccionar imágenes"))
+//        }
 
         btnSubmit.setOnClickListener {
             val tipoPos = spinnerTipo.selectedItemPosition

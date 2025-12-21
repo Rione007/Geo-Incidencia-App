@@ -195,8 +195,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
-        <!-- Imágenes -->
+        <!--
         <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -204,6 +203,7 @@
                 app:cardBackgroundColor="#1E2A35"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="4dp">
+
 
             <LinearLayout
                     android:orientation="vertical"
@@ -229,6 +229,8 @@
                         android:layout_marginTop="8dp"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        -->
 
         <!-- Botón Submit -->
         <com.google.android.material.button.MaterialButton

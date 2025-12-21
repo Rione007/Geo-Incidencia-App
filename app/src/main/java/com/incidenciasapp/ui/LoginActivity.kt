@@ -26,9 +26,11 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        userPrefs = UserPreferences(this)
+        checkUserSession()
         setContentView(R.layout.activity_login)
 
-        userPrefs = UserPreferences(this)
+
 
         val authApi = RetrofitClient.create(AuthApiService::class.java) { null }
         val repo = AuthRepository(authApi)
@@ -80,6 +82,19 @@ class LoginActivity : ComponentActivity() {
                 } else {
                     Toast.makeText(this@LoginActivity, "Error al guardar sesión", Toast.LENGTH_LONG).show()
                 }
+            }
+        }
+    }
+
+    private fun checkUserSession() {
+        lifecycleScope.launch {
+            // Leemos el primer valor que emita el Flow del token
+            val token = userPrefs.getToken().first()
+
+            if (!token.isNullOrBlank()) {
+                // Si el token existe, saltamos al Panel Principal
+                startActivity(Intent(this@LoginActivity, PanelPrincipalActivity::class.java))
+                finish() // Importante para que no puedan volver atrás al login
             }
         }
     }
