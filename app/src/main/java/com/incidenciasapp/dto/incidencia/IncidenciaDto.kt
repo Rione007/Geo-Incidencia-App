@@ -3,48 +3,49 @@ package com.incidenciasapp.dto.incidencia
 import com.google.gson.annotations.SerializedName
 
 data class IncidenciaDto(
-    @SerializedName("ID_INCIDENCIA")
+
+    @SerializedName("iD_INCIDENCIA")
     val idIncidencia: Int,
 
-    @SerializedName("ID_TIPO")
+    @SerializedName("iD_TIPO")
     val idTipo: Int,
 
-    @SerializedName("ID_SUBTIPO")
+    @SerializedName("iD_SUBTIPO")
     val idSubtipo: Int,
 
-    @SerializedName("ID_USUARIO")
+    @SerializedName("iD_USUARIO")
     val idUsuario: Int,
 
-    @SerializedName("FECHA_INCIDENCIA")
-    val fechaIncidencia: String,
+    @SerializedName("fechA_INCIDENCIA")
+    val fechaIncidencia: String?,
 
-    @SerializedName("FECHA_REGISTRO")
-    val fechaRegistro: String,
+    @SerializedName("fechA_REGISTRO")
+    val fechaRegistro: String?,
 
-    @SerializedName("LATITUD")
+    @SerializedName("latitud")
     val latitud: Double,
 
-    @SerializedName("LONGITUD")
+    @SerializedName("longitud")
     val longitud: Double,
 
-    @SerializedName("DESCRIPCION")
+    @SerializedName("descripcion")
     val descripcion: String?,
 
-    @SerializedName("FOTO_URL1")
-    val fotoUrl1: String?,
+    @SerializedName("fotO_URL1")
+    val fotoUrl1: String?, //este no se muestra
 
-    @SerializedName("FOTO_URL2")
-    val fotoUrl2: String?,
+    @SerializedName("fotO_URL2")
+    val fotoUrl2: String?, //este no se muestra
 
-    @SerializedName("FOTO_URL3")
-    val fotoUrl3: String?,
+    @SerializedName("fotO_URL3")
+    val fotoUrl3: String?, //este no se muestra
 
-    @SerializedName("DIRECCION_REFERENCIA")
+    @SerializedName("direccioN_REFERENCIA")
     val direccionReferencia: String?,
 
-    @SerializedName("ESTADO")
-    val estado: Boolean,
+    @SerializedName("estado")
+    val estado: Boolean, //este no se muestra
 
-    @SerializedName("DISTANCIA")
-    val distancia: String? // Se llena solo en búsquedas por radio
+    @SerializedName("distancia")
+    val distancia: String?  //este no se muestra
 )

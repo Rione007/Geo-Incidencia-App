@@ -17,13 +17,13 @@ import retrofit2.http.Query
 interface IncidenciaApiService {
 
     // 1. Registrar incidencia
-    @POST("Registrar")
+    @POST("Incidencia/Registrar")
     suspend fun registrarIncidencia(
         @Body request: IncidenciaRequest
     ): IncidenciaResponse
 
     // 2. Listar incidencias con filtros (Query Params)
-    @GET("listar")
+    @GET("Incidencia/listar")
     suspend fun listarIncidencias(
         @Query("tipo") tipo: Int?,
         @Query("subtipo") subtipo: Int?,
@@ -33,7 +33,7 @@ interface IncidenciaApiService {
     ): Response<ApiResponse<List<IncidenciaListadoDto>>>
 
     // 3. Buscar por área (Caja de coordenadas)
-    @GET("buscarPorArea")
+    @GET("Incidencia/buscarPorArea")
     suspend fun buscarPorArea(
         @Query("minLat") minLat: Double,
         @Query("maxLat") maxLat: Double,
@@ -46,13 +46,13 @@ interface IncidenciaApiService {
 
 
     // 6. Listar incidencias por usuario (Path Variable)
-    @GET("ListarPorUsuario/{usuarioId}")
+    @GET("Incidencia/ListarPorUsuario/{usuarioId}")
     suspend fun listarPorUsuario(
         @Path("usuarioId") usuarioId: Int
     ): Response<ApiResponse<List<IncidenciaListadoDto>>>
 
     // 7. Obtener incidencia por Id
-    @GET("Obtener/{id}")
+    @GET("Incidencia/Obtener/{id}")
     suspend fun obtenerPorId(
         @Path("id") id: Int
     ): Response<ApiResponse<IncidenciaDto>>

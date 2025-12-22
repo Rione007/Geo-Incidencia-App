@@ -32,7 +32,7 @@ class RegistrarActivity : AppCompatActivity() {
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
 
         // Inicializar ViewModel
-        val api = RetrofitClient.create(AuthApiService::class.java){null}
+        val api = RetrofitClient.create(AuthApiService::class.java)
         val repo = AuthRepository(api)
         val factory = ViewModelFactory(repo)
         viewModel = ViewModelProvider(this, factory)[RegistrarViewModel::class.java]

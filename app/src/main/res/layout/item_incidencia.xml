@@ -15,12 +15,22 @@
         android:gravity="center_vertical"
         android:padding="16dp">
 
-        <View
+        <FrameLayout
             android:id="@+id/viewIconType"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_icon_rounded"
-            android:backgroundTint="#1A2633" />
+            android:backgroundTint="#1A2633">
+
+            <ImageView
+                android:id="@+id/ivTipoIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_reportes"
+                app:tint="@android:color/white" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="0dp"

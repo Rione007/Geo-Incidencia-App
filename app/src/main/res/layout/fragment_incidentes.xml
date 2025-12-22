@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Incidents"
+                android:text="Incidentes"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -72,7 +72,7 @@
                 android:textColor="#007AFF"
                 android:textStyle="bold" />
         </LinearLayout>
-
+<!--
         <HorizontalScrollView
             android:id="@+id/scrollFilters"
             android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All"
+                    android:text="Tipos:"
                     app:chipBackgroundColor="#007AFF"
                     android:textColor="@android:color/white" />
 
@@ -100,23 +100,69 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accident"
+                    android:text="Robo"
                     app:chipIcon="@android:drawable/ic_delete" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Theft" />
+                    android:text="Accidente Transito" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peligro en Via" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/scrollFilters2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scrollFilters"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFilters2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtipo:"
+                    app:chipBackgroundColor="#007AFF"
+                    android:textColor="@android:color/white" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mano Armada"
+                    app:chipIcon="@android:drawable/ic_delete" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Robo Agrabado" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+        -->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIncidencias"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/scrollFilters"
+            android:layout_below="@id/layoutSearch"
             android:layout_marginTop="8dp"
             tools:listitem="@layout/item_incidencia" />
 

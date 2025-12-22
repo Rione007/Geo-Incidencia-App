@@ -3,24 +3,22 @@ package com.incidenciasapp.dto.incidencia
 import com.google.gson.annotations.SerializedName
 
 data class IncidenciaListadoDto(
-    @SerializedName("ID_INCIDENCIA")
+
+    @SerializedName("iD_INCIDENCIA")
     val idIncidencia: Int,
 
-    @SerializedName("ID_TIPO")
+    @SerializedName("iD_TIPO")
     val idTipo: Int,
 
-    @SerializedName("ID_SUBTIPO")
+    @SerializedName("iD_SUBTIPO")
     val idSubtipo: Int,
 
-    @SerializedName("ID_USUARIO")
-    val idUsuario: Int,
+    @SerializedName("fechA_INCIDENCIA")
+    val fechaIncidencia: String?,  // 👈 DEBE ser nullable
 
-    @SerializedName("FECHA_INCIDENCIA")
-    val fechaIncidencia: String, // Se recibe como String ISO 8601
-
-    @SerializedName("DESCRIPCION")
+    @SerializedName("descripcion")
     val descripcion: String?,
 
-    @SerializedName("DIRECCION_REFERENCIA")
+    @SerializedName("direccioN_REFERENCIA")
     val direccionReferencia: String?
 )

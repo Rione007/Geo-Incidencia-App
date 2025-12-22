@@ -32,7 +32,7 @@ class LoginActivity : ComponentActivity() {
 
 
 
-        val authApi = RetrofitClient.create(AuthApiService::class.java) { null }
+        val authApi = RetrofitClient.create(AuthApiService::class.java)
         val repo = AuthRepository(authApi)
         val factory = ViewModelFactory(repo)
         viewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]

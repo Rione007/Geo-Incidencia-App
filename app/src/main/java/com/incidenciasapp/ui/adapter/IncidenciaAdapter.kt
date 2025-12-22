@@ -1,9 +1,11 @@
 package com.incidenciasapp.ui.adapter
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -19,22 +21,32 @@ class IncidenciaAdapter(
         val descripcion: TextView = view.findViewById(R.id.tvDescripcion)
         val fecha: TextView = view.findViewById(R.id.tvFecha)
         val iconoFondo: View = view.findViewById(R.id.viewIconType)
+        val iconoTipo: ImageView = view.findViewById(R.id.ivTipoIcon)
+
+
 
         // Función para bindear datos
         fun bind(item: IncidenciaListadoDto) {
             descripcion.text = item.descripcion ?: "Sin descripción"
 
             // Formatear fecha simple (puedes mejorar esto con una función de tiempo transcurrido)
-            fecha.text = item.fechaIncidencia.replace("T", " ").substring(0, 16)
+            fecha.text = item.fechaIncidencia
+                ?.replace("T", " ")
+                ?.take(16)
+                ?: "Sin fecha"
 
-            // Cambiar color del icono según el ID_TIPO
-            // Supongamos: 1 = Accidente (Rojo), 2 = Robo (Amarillo), otros = Azul
-            val color = when (item.idTipo) {
-                1 -> "#FF4B4B" // Rojo
-                2 -> "#FFB347" // Naranja/Amarillo
-                else -> "#007AFF" // Azul
+
+            val (iconRes, color) = when (item.idTipo) {
+                1 -> R.drawable.ic_robo to "#FF4B4B"   // Robo
+                2 -> R.drawable.ic_car_crash to "#FFB347" // Accidente
+                3 -> R.drawable.ic_warning to "#FACC15"   // Peligro vía
+                4 -> R.drawable.ic_medical to "#22C55E"   // Emergencia médica
+                else -> R.drawable.ic_other to "#64748B"  // Otro
             }
-            iconoFondo.backgroundTintList = android.content.res.ColorStateList.valueOf(Color.parseColor(color))
+            iconoTipo.setImageResource(iconRes)
+
+            iconoFondo.backgroundTintList =
+                ColorStateList.valueOf(Color.parseColor(color))
         }
     }
 

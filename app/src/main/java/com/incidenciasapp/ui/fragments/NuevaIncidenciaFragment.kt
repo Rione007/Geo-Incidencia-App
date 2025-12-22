@@ -42,29 +42,29 @@ class NuevaIncidenciaFragment : Fragment() {
 
     private var lat: Double? = null
     private var lng: Double? = null
-    private val selectedImageUris = mutableListOf<Uri>()
-    private val maxImages = 3
+//    private val selectedImageUris = mutableListOf<Uri>()
+//    private val maxImages = 3
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private var chosenDate = Calendar.getInstance()
-    private lateinit var containerImages: ViewGroup
+//    private lateinit var containerImages: ViewGroup
 
     private var tiposList: List<TipoItem> = emptyList()
     private var subtiposList: List<SubtipoItem> = emptyList()
 
-    private val pickImagesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
-            val data = result.data ?: return@registerForActivityResult
-            selectedImageUris.clear()
-            data.clipData?.let { clip ->
-                val count = clip.itemCount.coerceAtMost(maxImages)
-                for (i in 0 until count) selectedImageUris.add(clip.getItemAt(i).uri)
-            } ?: data.data?.let { uri ->
-                selectedImageUris.add(uri)
-            }
-            if (selectedImageUris.size > maxImages) selectedImageUris.subList(maxImages, selectedImageUris.size).clear()
-            showSelectedImages()
-        }
-    }
+//    private val pickImagesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//        if (result.resultCode == android.app.Activity.RESULT_OK) {
+//            val data = result.data ?: return@registerForActivityResult
+//            selectedImageUris.clear()
+//            data.clipData?.let { clip ->
+//                val count = clip.itemCount.coerceAtMost(maxImages)
+//                for (i in 0 until count) selectedImageUris.add(clip.getItemAt(i).uri)
+//            } ?: data.data?.let { uri ->
+//                selectedImageUris.add(uri)
+//            }
+//            if (selectedImageUris.size > maxImages) selectedImageUris.subList(maxImages, selectedImageUris.size).clear()
+//            showSelectedImages()
+//        }
+//    }
 
     private val pickLocationLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == android.app.Activity.RESULT_OK) {
@@ -95,8 +95,8 @@ class NuevaIncidenciaFragment : Fragment() {
         spinnerTipo.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Cargando..."))
         spinnerSubtipo.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Cargando..."))
 
-        val tipoService = RetrofitClient.create(TipoApiService::class.java) { null }
-        val subtipoService = RetrofitClient.create(SubtipoApiService::class.java) { null }
+        val tipoService = RetrofitClient.create(TipoApiService::class.java)
+        val subtipoService = RetrofitClient.create(SubtipoApiService::class.java)
         val tipoRepo = TipoRepository(tipoService)
         val subtipoRepo = SubtipoRepository(subtipoService)
 
@@ -189,23 +189,23 @@ class NuevaIncidenciaFragment : Fragment() {
                         return@launch
                     }
 
-                    Toast.makeText(requireContext(), "Subiendo imágenes...", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "Subiendo imágenes...", Toast.LENGTH_SHORT).show()
 
-                    val azureService = AzureStorageService(
-                        accountName = BuildConfig.AZURE_ACCOUNT_NAME,
-                        containerName = BuildConfig.AZURE_CONTAINER_NAME,
-                        sasToken = BuildConfig.AZURE_SAS_TOKEN
-                    )
+//                    val azureService = AzureStorageService(
+//                        accountName = BuildConfig.AZURE_ACCOUNT_NAME,
+//                        containerName = BuildConfig.AZURE_CONTAINER_NAME,
+//                        sasToken = BuildConfig.AZURE_SAS_TOKEN
+//                    )
+//
+//                    val uploadResult = azureService.uploadMultipleImages(requireContext(), selectedImageUris)
 
-                    val uploadResult = azureService.uploadMultipleImages(requireContext(), selectedImageUris)
+//                    if (uploadResult.isFailure) {
+//                        Toast.makeText(requireContext(), "Error: ${uploadResult.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+//                        btnSubmit.isEnabled = true
+//                        return@launch
+//                    }
 
-                    if (uploadResult.isFailure) {
-                        Toast.makeText(requireContext(), "Error: ${uploadResult.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
-                        btnSubmit.isEnabled = true
-                        return@launch
-                    }
-
-                    val imageUrls = uploadResult.getOrNull() ?: emptyList()
+//                    val imageUrls = uploadResult.getOrNull() ?: emptyList()
 
                     val request = IncidenciaRequest(
                         idUsuario = idUsuario,
@@ -215,14 +215,14 @@ class NuevaIncidenciaFragment : Fragment() {
                         idSubtipo = selectedSubtipo.idSubtipo,
                         descripcion = etDescripcion.text.toString().ifBlank { null },
                         direccionReferencia = etDireccion.text.toString().ifBlank { null },
-                        fotoUrl1 = imageUrls.getOrNull(0),
-                        fotoUrl2 = imageUrls.getOrNull(1),
-                        fotoUrl3 = imageUrls.getOrNull(2),
+                        fotoUrl1 = null,
+                        fotoUrl2 = null,
+                        fotoUrl3 = null,
                         fechaIncidencia = dateFormat.format(chosenDate.time)
                     )
 
 
-                    val incidenciaService = RetrofitClient.create(IncidenciaApiService::class.java) { null }
+                    val incidenciaService = RetrofitClient.create(IncidenciaApiService::class.java)
                     val incidenciaRepo = IncidenciaRepository(incidenciaService)
 
                     val result = incidenciaRepo.createIncidencia(request)
@@ -243,15 +243,15 @@ class NuevaIncidenciaFragment : Fragment() {
         }
     }
 
-    private fun showSelectedImages() {
-        containerImages.removeAllViews()
-        selectedImageUris.forEach { uri ->
-            val iv = ImageView(requireContext()).apply {
-                layoutParams = ViewGroup.LayoutParams(200, 200)
-                scaleType = ImageView.ScaleType.CENTER_CROP
-                setImageURI(uri)
-            }
-            containerImages.addView(iv)
-        }
-    }
+//    private fun showSelectedImages() {
+//        containerImages.removeAllViews()
+//        selectedImageUris.forEach { uri ->
+//            val iv = ImageView(requireContext()).apply {
+//                layoutParams = ViewGroup.LayoutParams(200, 200)
+//                scaleType = ImageView.ScaleType.CENTER_CROP
+//                setImageURI(uri)
+//            }
+//            containerImages.addView(iv)
+//        }
+//    }
 }

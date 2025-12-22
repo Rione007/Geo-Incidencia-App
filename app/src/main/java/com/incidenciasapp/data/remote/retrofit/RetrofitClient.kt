@@ -28,10 +28,10 @@ object RetrofitClient {
             .build()
     }
 
-    fun <T> create(service: Class<T>, tokenProvider: () -> String?): T {
+    fun <T> create(service: Class<T>): T {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client( getOkHttpClient(tokenProvider) )
+            //.client( getOkHttpClient(tokenProvider) )
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(service)

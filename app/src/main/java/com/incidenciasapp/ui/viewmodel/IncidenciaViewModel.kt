@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.incidenciasapp.data.repository.IncidenciaRepository
 import com.incidenciasapp.dto.incidencia.IncidenciaListadoDto
+import com.incidenciasapp.dto.incidencia.IncidenciaListadoRequest
 import com.incidenciasapp.dto.incidencia.IncidenciaRequest
 import com.incidenciasapp.dto.incidencia.IncidenciaResponse
 import kotlinx.coroutines.launch
@@ -35,10 +36,10 @@ class IncidenciaViewModel(
         }
     }
     // Función para obtener la lista
-    fun cargarIncidencias(tipo: Int? = null) {
+    fun cargarIncidencias(request: IncidenciaListadoRequest) {
         viewModelScope.launch {
             loading.value = true
-            val result = repository.listarIncidencias(tipo)
+            val result = repository.listarIncidencias(request)
             loading.value = false
 
             result.onSuccess {
@@ -48,4 +49,19 @@ class IncidenciaViewModel(
             }
         }
     }
+
+    fun cargarIncidenciasPorUsuario(usuarioId: Int) {
+        viewModelScope.launch {
+            loading.value = true
+            val result = repository.listarIncidenciasPorUsuario(usuarioId)
+            loading.value = false
+
+            result.onSuccess {
+                incidenciasList.value = it
+            }.onFailure {
+                errorMessage.value = it.message
+            }
+        }
+    }
+
 }
