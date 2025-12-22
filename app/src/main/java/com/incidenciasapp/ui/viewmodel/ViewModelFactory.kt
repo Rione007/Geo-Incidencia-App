@@ -20,6 +20,9 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(IncidenciaViewModel::class.java) -> {
                 IncidenciaViewModel(repo as IncidenciaRepository) as T
             }
+            modelClass.isAssignableFrom(ExplorarViewModel::class.java) -> {
+                ExplorarViewModel(repo as IncidenciaRepository) as T
+            }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

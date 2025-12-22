@@ -1,6 +1,7 @@
 package com.incidenciasapp.data.repository
 
 import com.incidenciasapp.data.remote.api.IncidenciaApiService
+import com.incidenciasapp.dto.incidencia.IncidenciaAreaRequest
 import com.incidenciasapp.dto.incidencia.IncidenciaDto
 import com.incidenciasapp.dto.incidencia.IncidenciaListadoDto
 import com.incidenciasapp.dto.incidencia.IncidenciaListadoRequest
@@ -73,6 +74,36 @@ class IncidenciaRepository(
                     Result.success(body.data ?: emptyList())
                 } else {
                     Result.failure(Exception(body?.message ?: "No se encontraron incidencias"))
+                }
+            } else {
+                Result.failure(Exception("Error HTTP: ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun buscarIncidenciasPorArea(
+        request: IncidenciaAreaRequest
+    ): Result<List<IncidenciaDto>> {
+        return try {
+            val response = apiService.buscarPorArea(
+                minLat = request.minLat,
+                maxLat = request.maxLat,
+                minLng = request.minLng,
+                maxLng = request.maxLng,
+                tipos = request.tipos,
+                subtipos = request.subtipos,
+                dias = request.dias
+            )
+
+            if (response.isSuccessful) {
+                val body = response.body()
+
+                if (body?.success == true) {
+                    Result.success(body.data ?: emptyList())
+                } else {
+                    Result.failure(Exception(body?.message ?: "Sin resultados en el área"))
                 }
             } else {
                 Result.failure(Exception("Error HTTP: ${response.message()}"))

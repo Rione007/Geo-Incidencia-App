@@ -233,6 +233,10 @@ class NuevaIncidenciaFragment : Fragment() {
                     } else {
                         Toast.makeText(requireContext(), "Error al crear incidencia: ${result.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
                     }
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ExplorarFragment())
+                        .addToBackStack(null)
+                        .commit()
 
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
